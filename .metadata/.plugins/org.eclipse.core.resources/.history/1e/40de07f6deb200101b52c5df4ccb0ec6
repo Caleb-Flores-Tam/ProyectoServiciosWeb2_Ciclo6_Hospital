@@ -1,0 +1,62 @@
+package com.medica.service.imp;
+
+import java.util.List;
+
+import com.medica.model.Tbl_Cita;
+import com.medica.service.ICitas;
+import org.springframework.stereotype.Service;
+
+@Service
+public class ClassCitaImp implements ICitas{
+
+	@Override
+	public List<Tbl_Cita> ListaCitas() {
+		String sqlListado = "SELECT c.idCitas,"
+				+ "m.nomDoctor AS NombreMedico,"
+				+ "e.nomEspecialidad AS Especialidad,"
+				+ "m.correo AS CorreoMedico,"
+				+ "p.dni AS DniPaciente,"
+			    + "p.nombre_pac AS NombrePaciente,"
+			    + "p.seguro AS Seguro,"
+			    + "p.telefono_pac AS TelefonoPaciente,"
+			    + "u.cargo AS CargoUsuario,"
+			    + "u.departamento AS DepartamentoUsuario,"
+			    + "u.nombre AS NombreUsuario,"
+			    + "u.apellido AS ApellidoUsuario,"
+			    + "c.FechaCreacion,"
+			    + "c.FechaAtencion,"
+			    + "c.Motivo"
+			    +"FROM Tbl_Citas c"
+			    +"INNER JOIN Tbl_Medico m ON c.IdMedico = m.cod_coc"
+			    +"INNER JOIN Tbl_Especialidad e ON m.especialidad = e.idEspecialidad"
+			    +"INNER JOIN tbl_paciente p ON c.IdPaciente = p.cod_pac"
+			    +"INNER JOIN tbl_usuario u ON c.IdUsuario = u.id_usuario"
+			    +"ORDER BY c.FechaCreacion DESC;";
+		return null;
+	}
+
+	@Override
+	public void RegistrarCita(Tbl_Cita cita) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void ActualizarCita(Tbl_Cita cita) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void EliminarCita(Tbl_Cita cita) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public Tbl_Cita buscarCitaId(Tbl_Cita cita) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+}

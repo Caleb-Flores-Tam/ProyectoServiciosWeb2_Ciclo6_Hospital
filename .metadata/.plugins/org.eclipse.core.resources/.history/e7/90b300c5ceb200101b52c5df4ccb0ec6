@@ -1,0 +1,225 @@
+package com.medica.service.imp;
+
+import com.medica.service.IUsuario;
+import java.sql.Connection;
+import java.sql.Date;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Timestamp;
+import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
+import com.medica.ConnectionSql.ConectarBD;
+import com.medica.service.IUsuario;
+import com.medica.model.Tbl_Genero;
+import com.medica.model.Tbl_Usuario;
+import util.PasswordUtils;
+
+public class ClassUsuarioImpl implements IUsuario{
+	private static final Logger LOGGER = Logger.getLogger(ClassUsuarioImpl.class.getName());
+
+	private static final String SQL_INSERT =
+		    "INSERT INTO tbl_usuario "
+		    + "(username, password, nombre, apellido, dni, genero, fecha_nacimiento, email, telefono, direccion, "
+		    + "cargo, departamento, fecha_ingreso, activo, fecha_creacion, ultimo_acceso, intentos_fallidos) "
+		    + "VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
+
+		private static final String SQL_UPDATE =
+		    "UPDATE tbl_usuario SET username=?, password=?, nombre=?, apellido=?, dni=?, genero=?, "
+		    + "fecha_nacimiento=?, email=?, telefono=?, direccion=?, cargo=?, departamento=?, "
+		    + "fecha_ingreso=?, activo=?, fecha_creacion=?, ultimo_acceso=?, intentos_fallidos=? "
+		    + "WHERE id_usuario=?";
+
+
+    private static final String SQL_DELETE = "DELETE FROM tbl_usuario WHERE id_usuario=?";
+    private static final String SQL_SELECT_ALL = "SELECT * FROM tbl_usuario";
+    private static final String SQL_SELECT_BY_ID = "SELECT * FROM tbl_usuario WHERE id_usuario=?";
+    private static final String SQL_SELECT_BY_USERNAME = "SELECT * FROM tbl_usuario WHERE username=?";
+
+	@Override
+	public void registrarUsuario(Tbl_Usuario usuario) {
+		try (Connection conn = ConectarBD.getConexion();
+	             PreparedStatement ps = conn.prepareStatement(SQL_INSERT)) {
+
+	            ps.setString(1, usuario.getUsername());
+	            ps.setString(2, PasswordUtils.hashPassword(usuario.getPassword())); // Encriptado
+	            ps.setString(3, usuario.getNombre());
+	            ps.setString(4, usuario.getApellido());
+	            ps.setString(5, usuario.getDni());
+	            ps.setString(6, usuario.getGenero().toString());
+	            ps.setDate(7, usuario.getFechaNacimiento() != null ? Date.valueOf(usuario.getFechaNacimiento()) : null);
+	            ps.setString(8, usuario.getEmail());
+	            ps.setString(9, usuario.getTelefono());
+	            ps.setString(10, usuario.getDireccion());
+	            ps.setString(11, usuario.getCargo());
+	            ps.setString(12, usuario.getDepartamento());
+	            ps.setDate(13, usuario.getFechaIngreso() != null ? Date.valueOf(usuario.getFechaIngreso()) : null);
+	            ps.setBoolean(14, usuario.isActivo());
+	            ps.setTimestamp(15, Timestamp.valueOf(LocalDateTime.now()));
+	            ps.setTimestamp(16, null);
+	            ps.setInt(17, 0);
+
+	            ps.executeUpdate();
+	            LOGGER.info(" Usuario registrado exitosamente: " + usuario.getUsername());
+	        } catch (SQLException e) {
+	            LOGGER.log(Level.SEVERE, " Error al registrar usuario", e);
+	        }
+		
+	}
+
+	@Override
+	public void actualizarUsuario(Tbl_Usuario usuario) {
+		try (Connection conn = ConectarBD.getConexion();
+	             PreparedStatement ps = conn.prepareStatement(SQL_UPDATE)) {
+
+	            ps.setString(1, usuario.getUsername());
+	            ps.setString(2, usuario.getPassword());
+	            ps.setString(3, usuario.getNombre());
+	            ps.setString(4, usuario.getApellido());
+	            ps.setString(5, usuario.getDni());
+	            ps.setString(6, usuario.getGenero().toString());
+	            ps.setDate(7, usuario.getFechaNacimiento() != null ? Date.valueOf(usuario.getFechaNacimiento()) : null);
+	            ps.setString(8, usuario.getEmail());
+	            ps.setString(9, usuario.getTelefono());
+	            ps.setString(10, usuario.getDireccion());
+	            ps.setString(11, usuario.getCargo());
+	            ps.setString(12, usuario.getDepartamento());
+	            ps.setDate(13, usuario.getFechaIngreso() != null ? Date.valueOf(usuario.getFechaIngreso()) : null);
+	            ps.setBoolean(14, usuario.isActivo());
+	            ps.setTimestamp(15, Timestamp.valueOf(usuario.getFechaCreacion()));
+	            ps.setTimestamp(16, usuario.getUltimoAcceso() != null ? Timestamp.valueOf(usuario.getUltimoAcceso()) : null);
+	            ps.setInt(17, usuario.getIntentosFallidos());
+	            ps.setInt(18, usuario.getId());
+
+	            ps.executeUpdate();
+	            LOGGER.info(" Usuario actualizado: " + usuario.getUsername());
+	        } catch (SQLException e) {
+	            LOGGER.log(Level.SEVERE, " Error al actualizar usuario", e.getMessage());
+	        }
+		
+	}
+
+	@Override
+	public void eliminarUsuario(int idUsuario) {
+		try (Connection conn = ConectarBD.getConexion();
+	             PreparedStatement ps = conn.prepareStatement(SQL_DELETE)) {
+
+	            ps.setInt(1, idUsuario);
+	            ps.executeUpdate();
+	            LOGGER.info(" Usuario eliminado ID: " + idUsuario);
+	        } catch (SQLException e) {
+	            LOGGER.log(Level.SEVERE, " Error al eliminar usuario", e);
+	        }
+		
+	}
+
+	@Override
+	public Tbl_Usuario buscarPorId(int id) {
+		try (Connection conn = ConectarBD.getConexion();
+	             PreparedStatement ps = conn.prepareStatement(SQL_SELECT_BY_ID)) {
+	            ps.setInt(1, id);
+	            ResultSet rs = ps.executeQuery();
+	            if (rs.next()) {
+	                Tbl_Usuario u = new Tbl_Usuario();
+	                u.setId(rs.getInt("id_usuario"));
+	                u.setUsername(rs.getString("username"));
+	                u.setPassword(rs.getString("password"));
+	                u.setNombre(rs.getString("nombre"));
+	                u.setApellido(rs.getString("apellido"));
+	                u.setDni(rs.getString("dni"));
+	                u.setGenero(Tbl_Genero.valueOf(rs.getString("genero")));
+	                u.setFechaNacimiento(rs.getString("fecha_nacimiento"));
+	                u.setEmail(rs.getString("email"));
+	                u.setTelefono(rs.getString("telefono"));
+	                u.setDireccion(rs.getString("direccion"));
+	                u.setCargo(rs.getString("cargo"));
+	                u.setDepartamento(rs.getString("departamento"));
+	                u.setFechaIngreso(rs.getString("fecha_ingreso"));
+	                u.setActivo(rs.getBoolean("activo"));
+	                u.setFechaCreacion(rs.getString("fecha_creacion"));
+	                u.setUltimoAcceso(rs.getString("ultimo_acceso"));
+	                u.setIntentosFallidos(rs.getInt("intentos_fallidos"));
+	                return u;
+	            }
+	        } catch (SQLException e) {
+	            LOGGER.log(Level.SEVERE, "Error al buscar usuario por ID", e);
+	        }
+	        return null;
+	}
+
+	@Override
+	public Tbl_Usuario buscarPorUsername(String username) {
+		  try (Connection conn = ConectarBD.getConexion();
+		             PreparedStatement ps = conn.prepareStatement(SQL_SELECT_BY_USERNAME)) {
+		            ps.setString(1, username);
+		            ResultSet rs = ps.executeQuery();
+		            if (rs.next()) {
+		                Tbl_Usuario u = new Tbl_Usuario();
+		                u.setId(rs.getInt("id_usuario"));
+		                u.setUsername(rs.getString("username"));
+		                u.setPassword(rs.getString("password"));
+		                u.setActivo(rs.getBoolean("activo"));
+		                return u;
+		            }
+		        } catch (SQLException e) {
+		            LOGGER.log(Level.SEVERE, "Error al buscar usuario por username", e);
+		        }
+		        return null;
+	}
+
+	@Override
+	public List<Tbl_Usuario> listarUsuarios() {
+		 List<Tbl_Usuario> lista = new ArrayList<>();
+	        try (Connection conn = ConectarBD.getConexion();
+	             PreparedStatement ps = conn.prepareStatement(SQL_SELECT_ALL);
+	             ResultSet rs = ps.executeQuery()) {
+
+	        	while (rs.next()) {
+	                Tbl_Usuario u = new Tbl_Usuario();
+	                u.setId(rs.getInt("id_usuario"));
+	                u.setUsername(rs.getString("username"));
+	                u.setPassword(rs.getString("password"));
+	                u.setNombre(rs.getString("nombre"));
+	                u.setApellido(rs.getString("apellido"));
+	                u.setDni(rs.getString("dni"));
+	                u.setGenero(Tbl_Genero.valueOf(rs.getString("genero")));
+	                u.setFechaNacimiento(rs.getString("fecha_nacimiento"));
+	                u.setEmail(rs.getString("email"));
+	                u.setTelefono(rs.getString("telefono"));
+	                u.setDireccion(rs.getString("direccion"));
+	                u.setCargo(rs.getString("cargo"));
+	                u.setDepartamento(rs.getString("departamento"));
+	                u.setFechaIngreso(rs.getString("fecha_ingreso"));
+	                u.setActivo(rs.getBoolean("activo"));
+	                u.setFechaCreacion(rs.getString("fecha_creacion"));
+	                u.setUltimoAcceso(rs.getString("ultimo_acceso"));
+	                u.setIntentosFallidos(rs.getInt("intentos_fallidos"));
+	                lista.add(u);
+	        	}
+	        } catch (SQLException e) {
+	            LOGGER.log(Level.SEVERE, "Error al listar usuarios", e);
+	        }
+	        return lista;
+	}
+
+	@Override
+	public boolean validarLogin(String username, String password) {
+		Tbl_Usuario user = buscarPorUsername(username);
+        if (user != null && user.isActivo()) {
+            boolean valid = PasswordUtils.matchPassword(password, user.getPassword());
+            if (valid) {
+                LOGGER.info("Login exitoso: " + username);
+                return true;
+            } else {
+                LOGGER.warning("Contraseña incorrecta para usuario: " + username);
+            }
+        } else {
+            LOGGER.warning("Usuario no encontrado o inactivo: " + username);
+        }
+        return false;
+    }
+}

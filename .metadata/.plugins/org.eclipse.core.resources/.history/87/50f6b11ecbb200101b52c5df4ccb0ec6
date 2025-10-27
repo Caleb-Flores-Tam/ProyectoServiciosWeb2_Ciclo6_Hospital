@@ -1,0 +1,36 @@
+package com.medica.dto;
+
+
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+
+public class UsuarioDTO {
+	private int id;
+    private String username;
+    private String nombre;
+    private String apellido;
+    private String email;
+    private String telefono;
+    private String cargo;
+    private boolean activo;
+    private String fechaIngreso;
+    private String ultimoAcceso;
+    public UsuarioDTO(){}
+	public UsuarioDTO(int id, String username, String nombre, String apellido, String email, String telefono,
+			String cargo, boolean activo, LocalDate fechaIngreso, LocalDateTime ultimoAcceso) {
+		//super();
+		this.id = id;
+		this.username = username;
+		this.nombre = nombre;
+		this.apellido = apellido;
+		this.email = email;
+		this.telefono = telefono;
+		this.cargo = cargo;
+		this.activo = activo;
+		this.fechaIngreso = fechaIngreso;
+		this.ultimoAcceso = ultimoAcceso;
+	}
+	
+    
+    
+}

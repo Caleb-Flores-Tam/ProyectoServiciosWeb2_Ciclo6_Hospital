@@ -1,0 +1,10 @@
+package com.medica.testServiceImpl;
+
+import com.medica.model.Tbl_Especialidades;
+
+public class TestEspecialidad {
+	public static void main(String[] args) {
+		Tbl_Especialidades espe = new Tbl_Especialidades();
+		
+	}
+}

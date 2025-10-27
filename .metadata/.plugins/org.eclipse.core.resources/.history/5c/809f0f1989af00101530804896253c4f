@@ -1,0 +1,12 @@
+package com.medica.testServiceImpl;
+
+import com.medica.model.Tbl_Especialidades;
+import com.medica.service.impl.ClassEspecialidadimp;
+
+public class TestEspecialidad {
+	public static void main(String[] args) {
+		Tbl_Especialidades espe = new Tbl_Especialidades();
+		ClassEspecialidadimp crud = new ClassEspecialidadimp();
+		
+	}
+}

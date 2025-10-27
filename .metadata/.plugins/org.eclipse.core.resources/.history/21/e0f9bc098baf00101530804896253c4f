@@ -1,0 +1,25 @@
+package com.medica.testServiceImpl;
+
+import com.medica.model.Tbl_Especialidades;
+import com.medica.service.impl.ClassEspecialidadimp;
+
+public class TestEspecialidad {
+	public static void main(String[] args) {
+		Tbl_Especialidades espe = new Tbl_Especialidades();
+		ClassEspecialidadimp crud = new ClassEspecialidadimp();
+		/*
+		//REGISTRAR
+		espe.setEspecialidad("aea");
+		espe.setDescEspecialidad("Rama ");
+		crud.RegistrarEspecialidad(espe);
+		*/
+		
+		//ACTUALIZAR
+		espe.setEspecialidad("Genetica");
+		espe.setDescEspecialidad("Alude al area de estudio de la biologia que busca comprender y explicar como se transmite la herencia biologica");
+		espe.setIdEspecialidad(2);
+		crud.ActualizarEspecialidad(espe);
+		
+		
+	}
+}

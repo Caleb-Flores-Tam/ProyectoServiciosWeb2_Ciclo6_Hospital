@@ -1,0 +1,45 @@
+package com.medica.model;
+
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+
+import com.fasterxml.jackson.annotation.JsonFormat;
+
+public class Tbl_Usuario {
+	private int id;
+    private String username;
+    private String password;
+    // Información personal
+    private String nombre;
+    private String apellido;
+    private String dni; // o número de identificación nacional
+    private Tbl_Genero genero; // MASCULINO, FEMENINO, OTRO
+    //Cambiamos el LocalDate por String
+    private String fechaNacimiento;
+    // Información de contacto
+    private String email;
+    private String telefono;
+    private String direccion;
+    // Información laboral
+    private String cargo; // ej: "Secretario/a de Consultorio"
+    private String departamento; // ej: "Atención al paciente", "Recepción"
+    //Cambiamos el LocalDate por String
+    private String fechaIngreso; // cuándo empezó a trabajar
+    private boolean activo; // si está activo en el sistema
+    // Auditoría del sistema
+    //Cambiamos el LocalDateTime por String
+    private String fechaCreacion;
+    //Cambiamos el LocalDateTime por String
+    private String ultimoAcceso;
+    private int intentosFallidos;
+
+    public Tbl_Usuario() {
+		// TODO Auto-generated constructor stub
+	}
+
+	
+	
+	
+    
+
+}

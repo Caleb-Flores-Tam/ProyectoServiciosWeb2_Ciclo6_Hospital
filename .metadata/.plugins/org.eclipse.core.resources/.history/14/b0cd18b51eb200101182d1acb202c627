@@ -1,0 +1,5 @@
+package com.medico.mapper;
+
+public class UsuarioMapper {
+
+}

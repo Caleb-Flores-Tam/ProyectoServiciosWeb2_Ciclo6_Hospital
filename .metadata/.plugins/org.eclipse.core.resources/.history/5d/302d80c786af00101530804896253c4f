@@ -1,0 +1,40 @@
+package com.medica.service.impl;
+
+import java.util.List;
+
+import com.medica.model.Tbl_Especialidades;
+import com.medica.service.IEspecialidadService;
+
+public class ClassEspecialidadimp implements IEspecialidadService {
+
+	@Override
+	public List<Tbl_Especialidades> ListarEspecialidades() {
+		String sqlinsert = "insert into tbl_especialidad value (value,?,?)";
+		return null;
+	}
+
+	@Override
+	public void RegistrarEspecialidad(Tbl_Especialidades espe) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void ActualizarEspecialidad(Tbl_Especialidades espe) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void EliminarEspecialidad(int id) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public Tbl_Especialidades buscarEspecialidadId(int id) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+}

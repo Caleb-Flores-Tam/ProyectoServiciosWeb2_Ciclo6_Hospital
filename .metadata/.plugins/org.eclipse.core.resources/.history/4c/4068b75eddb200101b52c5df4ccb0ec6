@@ -1,0 +1,40 @@
+package com.medica.service.imp;
+
+import java.util.List;
+
+import com.medica.model.Tbl_Cita;
+import com.medica.service.ICitas;
+
+public class ClassCitaImp implements ICitas{
+
+	@Override
+	public List<Tbl_Cita> ListaCitas() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public void RegistrarCita(Tbl_Cita cita) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void ActualizarCita(Tbl_Cita cita) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void EliminarCita(Tbl_Cita cita) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public Tbl_Cita buscarCitaId(Tbl_Cita cita) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+}

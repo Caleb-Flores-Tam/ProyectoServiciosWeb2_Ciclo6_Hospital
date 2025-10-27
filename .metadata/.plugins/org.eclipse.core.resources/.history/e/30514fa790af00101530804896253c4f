@@ -1,0 +1,122 @@
+package com.medica.service.impl;
+
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
+
+import org.springframework.stereotype.Service;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.jca.cci.connection.ConnectionSpecConnectionFactoryAdapter;
+
+import com.medica.ConnectionSql.ConectarBD;
+import com.medica.model.Tbl_Medico;
+import com.medica.repository.IMedico;
+import com.medica.service.IMedicoService;
+
+@Service
+public class ClassMedicoImp implements IMedicoService{
+
+	
+	@Override
+	public List<Tbl_Medico> ListarMedico() {
+	    List<Tbl_Medico> lista = new ArrayList<>();
+	    try (Connection cn = ConectarBD.getConexion()) {
+	        String sql = "SELECT * FROM Tbl_Medico";
+	        PreparedStatement ps = cn.prepareStatement(sql);
+	        ResultSet rs = ps.executeQuery();
+
+	        while (rs.next()) {
+	            Tbl_Medico m = new Tbl_Medico();
+	            m.setCod_doc(rs.getInt("cod_coc"));
+	            m.setNomDoctor(rs.getString("nomDoctor"));
+	            //m.setEspecialidad(rs.getString("especialidad"));
+	            m.setNacionalidad(rs.getString("nacionalidad"));
+	            m.setDni(rs.getString("dni"));
+	            m.setCorreo(rs.getString("correo"));
+	            m.setFecha(rs.getString("fecha"));
+	            lista.add(m);
+	        }
+
+	    } catch (SQLException e) {
+	        e.printStackTrace();
+	    }
+	    return lista;
+	}
+
+	@Override
+	public void RegistrarMedico(Tbl_Medico medico) {
+		String sqlInsert= "insert into Tbl_Medico values(null,?,?,?,?,?,?)";
+		PreparedStatement ps = null;
+		try {
+			ps = ConectarBD.getConexion().prepareStatement(sqlInsert);
+			ps.setString(1, medico.getNomDoctor());
+			//ps.setString(2, medico.getEspecialidad());
+			ps.setString(3, medico.getNacionalidad());
+			ps.setString(4, medico.getDni());
+			ps.setString(5,medico.getFecha());
+			ps.setString(6, medico.getCorreo());
+		int z = ps.executeUpdate();
+		if(z>0){
+			System.out.print("Dato registrado en la BD!!!!!");
+		}
+			
+		} catch (SQLException e) {
+			System.out.print(e.getMessage());
+		}
+	}
+
+	@Override
+	public void EliminarMedico(Tbl_Medico medico) {
+		String sqldelete = "delete from Tbl_Medico where cod_coc=?";
+		PreparedStatement ps = null;
+		try {
+			ps=ConectarBD.getConexion().prepareStatement(sqldelete);
+			ps.setInt(1, medico.getCod_doc());
+			int z = ps.executeUpdate();
+			if(z>0){
+				System.out.println("Usuario con codigo "+medico.getCod_doc()+" de la BD!!!!!!");
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+	}
+
+	@Override
+	public Tbl_Medico buscarMedicoId(Tbl_Medico medico) {
+				String sqlbuscar = "SELECT * FROM Tbl_Medico where cod_coc = ?";
+				PreparedStatement ps = null;
+				ResultSet rs = null;
+				Tbl_Medico buscarMedico = new Tbl_Medico();
+				try {
+					ps = ConectarBD.getConexion().prepareStatement(sqlbuscar);
+					ps.setInt(1, medico.getCod_doc());
+					rs = ps.executeQuery();
+					if (rs.next()) {
+						buscarMedico.setCod_doc(rs.getInt(1));
+						buscarMedico.setNomDoctor(rs.getString(2));
+						buscarMedico.setEspecialidad(rs.getString(3));
+						buscarMedico.setNacionalidad(rs.getString(4));
+						buscarMedico.setDni(rs.getString(5));
+						buscarMedico.setFecha(rs.getString(6));
+						buscarMedico.setCorreo(rs.getString(7));
+					}// fin del if
+				} catch (SQLException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+				//retornamos el autor buscado
+				return buscarMedico;
+	}
+
+	@Override
+	public void ActualizarMedico(Tbl_Medico medico) {
+		// TODO Auto-generated method stub
+		
+	}
+
+}

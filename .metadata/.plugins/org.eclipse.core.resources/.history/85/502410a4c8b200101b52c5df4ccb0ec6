@@ -1,0 +1,9 @@
+package com.medica.controller;
+
+import javax.ws.rs.ApplicationPath;
+import javax.ws.rs.core.Application;
+
+@ApplicationPath("Hospital")
+public class Configuracion extends Application{
+
+}

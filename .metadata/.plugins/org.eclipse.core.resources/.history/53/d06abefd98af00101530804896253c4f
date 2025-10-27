@@ -1,0 +1,81 @@
+package com.medica.controller;
+
+import javax.ws.rs.core.MediaType;
+import java.util.List;
+import javax.persistence.MappedSuperclass;
+import javax.ws.rs.ApplicationPath;
+import javax.ws.rs.Consumes;
+import javax.ws.rs.DELETE;
+import javax.ws.rs.GET;
+import javax.ws.rs.POST;
+import javax.ws.rs.PUT;
+import javax.ws.rs.Path;
+import javax.ws.rs.PathParam;
+import javax.ws.rs.Produces;
+
+import com.medica.model.Tbl_Medico;
+import com.medica.service.impl.ClassMedicoImp;
+
+import javax.ws.rs.core.Response;
+import javax.ws.rs.core.Response.Status;
+
+@Path("/Medico")
+public class MedicoServiceREST {
+	
+	ClassMedicoImp crud = new ClassMedicoImp();
+	
+	@GET
+	@Path("Listado")
+	@Produces(MediaType.APPLICATION_JSON)
+	public Response ListadoMedico(){
+		List<Tbl_Medico> listar = crud.ListarMedico();
+		return Response.ok(listar).build();
+	}
+	
+	@POST
+	@Path("/RegistrarMedico")
+	@Produces(MediaType.APPLICATION_JSON)
+	@Consumes(MediaType.APPLICATION_JSON)
+	public Response CrearAutor(Tbl_Medico medico){
+		crud.RegistrarMedico(medico);
+		return Response.status(Status.CREATED).build();
+	}
+	
+	
+	@GET
+	@Path("/BuscarMedico/{id}")
+	@Produces(MediaType.APPLICATION_JSON)
+	public Response BuscarMedicoPorId(@PathParam("id") int id) {
+	    Tbl_Medico medico = new Tbl_Medico();
+	    medico.setCod_doc(id);
+	    Tbl_Medico resultado = crud.buscarMedicoId(medico);
+	    if (resultado.getCod_doc() == 0) { // si no encontró registro
+	    	return Response.status(Status.NOT_FOUND)
+	    			.entity("{\"mensaje\":\"No se encontró médico con ID " + id + "\"}")
+	    			.build();
+	    }
+
+	    return Response.ok(resultado).build();
+	    }
+
+	 	// ACTUALIZAR MÉDICO
+	    @PUT
+	    @Path("/ActualizarMedico")
+	    @Consumes(MediaType.APPLICATION_JSON)
+	    @Produces(MediaType.APPLICATION_JSON)
+	    public Response ActualizarMedico(Tbl_Medico medico) {
+	        crud.ActualizarMedico(medico);
+	        return Response.ok(medico).build();
+	    }
+
+	    // 🔹 ELIMINAR MÉDICO
+	    @DELETE
+	    @Path("/EliminarMedico/{id}")
+	    @Produces(MediaType.APPLICATION_JSON)
+	    public Response EliminarMedico(@PathParam("id") int id) {
+	        Tbl_Medico medico = new Tbl_Medico();
+	        medico.setCod_doc(id);
+	        crud.EliminarMedico(medico);
+	        return Response.ok("{\"mensaje\":\"Médico eliminado correctamente\"}").build();
+	    }
+}

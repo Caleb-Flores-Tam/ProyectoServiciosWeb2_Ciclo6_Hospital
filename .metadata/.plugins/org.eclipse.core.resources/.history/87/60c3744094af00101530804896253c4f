@@ -1,0 +1,50 @@
+package com.medica.controller;
+
+import javax.ws.rs.core.MediaType;
+import java.util.List;
+import javax.persistence.MappedSuperclass;
+import javax.ws.rs.ApplicationPath;
+import javax.ws.rs.Consumes;
+import javax.ws.rs.GET;
+import javax.ws.rs.POST;
+import javax.ws.rs.Path;
+import javax.ws.rs.Produces;
+import javax.ws.rs.QueryParam;
+
+import org.glassfish.jersey.process.internal.RequestScoped;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+
+import com.medica.model.Tbl_Medico;
+import com.medica.service.IMedicoService;
+import com.medica.service.impl.ClassMedicoImp;
+
+import javax.ws.rs.core.Response;
+import javax.ws.rs.core.Response.Status;
+
+@Path("/Medico")
+public class MedicoController {
+	
+	ClassMedicoImp crud = new ClassMedicoImp();
+	
+	@GET
+	@Path("Listado")
+	@Produces(MediaType.APPLICATION_JSON)
+	public Response ListadoMedico(){
+		List<Tbl_Medico> listar = crud.ListarMedico();
+		return Response.ok(listar).build();
+	}
+	
+	@POST
+	@Path("/RegistrarMedico")
+	@Produces(MediaType.APPLICATION_JSON)
+	@Consumes(MediaType.APPLICATION_JSON)
+	public Response CrearAutor(Tbl_Medico medico){
+		crud.RegistrarMedico(medico);
+		return Response.status(Status.CREATED).build();
+	}
+	
+
+}

@@ -1,0 +1,54 @@
+package com.medica.testServiceImpl;
+
+import java.util.List;
+
+import com.medica.model.Tbl_Especialidades;
+import com.medica.service.impl.ClassEspecialidadimp;
+
+public class TestEspecialidad {
+	public static void main(String[] args) {
+		Tbl_Especialidades espe = new Tbl_Especialidades();
+		ClassEspecialidadimp crud = new ClassEspecialidadimp();
+		/*
+		//REGISTRAR
+		espe.setEspecialidad("aea");
+		espe.setDescEspecialidad("Rama ");
+		crud.RegistrarEspecialidad(espe);
+		
+		
+		//ACTUALIZAR
+		espe.setEspecialidad("Genetica");
+		espe.setDescEspecialidad("Alude al area de estudio de la biologia que busca comprender y explicar como se transmite la herencia biologica");
+		espe.setIdEspecialidad(2);
+		crud.ActualizarEspecialidad(espe);
+		
+		
+		//ELIMINAR
+		espe.setIdEspecialidad(3);
+		crud.EliminarEspecialidad(espe);
+		
+		
+		//LISTADO
+		List<Tbl_Especialidades> listaEspe = crud.ListarEspecialidades();
+		System.out.println("--- LISTADO ESPECIALIDADES ---");
+		for(Tbl_Especialidades especialidades : listaEspe){
+			System.out.println("ID: "+especialidades.getIdEspecialidad());
+			System.out.println("ESPECIALIDAD: "+especialidades.getEspecialidad());
+			System.out.println("DESCRIPCION: "+especialidades.getDescEspecialidad());
+			System.out.println("-------------------------------");
+		}
+		
+		*/
+		
+		//LISTADO
+		espe.setIdEspecialidad(2);
+		Tbl_Especialidades especialidades= crud.buscarEspecialidadId(espe);
+		System.out.println("--- LISTADO ESPECIALIDADES ---");
+			System.out.println("ID: "+especialidades.getIdEspecialidad());
+			System.out.println("ESPECIALIDAD: "+especialidades.getEspecialidad());
+			System.out.println("DESCRIPCION: "+especialidades.getDescEspecialidad());
+			System.out.println("-------------------------------");
+		
+		
+	}
+}

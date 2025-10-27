@@ -1,0 +1,45 @@
+Manifest-Version: 1.0
+Bnd-LastModified: 1484843308763
+Build-Jdk: 1.8.0_92
+Built-By: jerseyrobot
+Bundle-Description: Jersey extension module providing support for Entity
+  Data Filtering.
+Bundle-DocURL: http://www.oracle.com/
+Bundle-License: http://glassfish.java.net/public/CDDL+GPL_1_1.html
+Bundle-ManifestVersion: 2
+Bundle-Name: jersey-ext-entity-filtering
+Bundle-SymbolicName: org.glassfish.jersey.ext.jersey-entity-filtering
+Bundle-Vendor: Oracle Corporation
+Bundle-Version: 2.25.1
+Created-By: Apache Maven Bundle Plugin
+Export-Package: org.glassfish.jersey.message.filtering.spi;uses:="org.gl
+ assfish.jersey.internal.util,jersey.repackaged.com.google.common.cache,
+ jersey.repackaged.com.google.common.collect,javax.inject,org.glassfish.
+ jersey.spi,org.glassfish.jersey.internal.util.collection,javax.xml.bind
+ ,org.glassfish.jersey.message.filtering";version="2.25.1",org.glassfish
+ .jersey.message.filtering;uses:="org.glassfish.hk2.api,jersey.repackage
+ d.com.google.common.collect,javax.ws.rs.core,org.glassfish.jersey.model
+ .internal,org.glassfish.jersey.message.filtering.internal,org.glassfish
+ .jersey.internal.inject,org.glassfish.jersey.message.filtering.spi,java
+ x.inject,javax.annotation,org.glassfish.jersey.internal.util,org.glassf
+ ish.hk2.utilities.binding,javax.ws.rs,org.glassfish.jersey.internal.uti
+ l.collection,jersey.repackaged.com.google.common.base,javax.annotation.
+ security,org.glassfish.jersey.server.filter,org.glassfish.jersey.server
+ .model,org.glassfish.jersey.server";version="2.25.1",org.glassfish.jers
+ ey.message.filtering.internal;uses:="org.glassfish.jersey.internal.l10n
+ ";version="2.25.1"
+Import-Package: javax.annotation;version="[1.2,2)",javax.annotation.secu
+ rity;version="[1.2,2)",javax.inject;version="[1.0,2)",javax.ws.rs;versi
+ on="[2.0,3)",javax.ws.rs.core;version="[2.0,3)",javax.xml.bind,jersey.r
+ epackaged.com.google.common.base;version="[2.25,3)",jersey.repackaged.c
+ om.google.common.cache;version="[2.25,3)",jersey.repackaged.com.google.
+ common.collect;version="[2.25,3)",org.glassfish.hk2.api;version="[2.5,3
+ )",org.glassfish.hk2.utilities.binding;version="[2.5,3)",org.glassfish.
+ jersey.internal.inject;version="[2.25,3)",org.glassfish.jersey.internal
+ .l10n;version="[2.25,3)",org.glassfish.jersey.internal.util;version="[2
+ .25,3)",org.glassfish.jersey.internal.util.collection;version="[2.25,3)
+ ",org.glassfish.jersey.model.internal;version="[2.25,3)",org.glassfish.
+ jersey.server;version="[2.25,3)",org.glassfish.jersey.server.filter;ver
+ sion="[2.25,3)",org.glassfish.jersey.server.model;version="[2.25,3)",or
+ g.glassfish.jersey.spi;version="[2.25,3)"
+Tool: Bnd-1.50.0

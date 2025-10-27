@@ -1,0 +1,111 @@
+package com.medica.controller;
+
+import java.util.List;
+
+import javax.ws.rs.*;
+import javax.ws.rs.core.MediaType;
+import javax.ws.rs.core.Response;
+
+import com.medica.dto.UsuarioDTO;
+import com.medica.model.Tbl_Usuario;
+import com.medica.service.UsuarioService;
+import com.medica.service.imp.ClassUsuarioImpl;
+import com.medico.mapper.UsuarioMapper;
+
+
+
+@Path("/Usuario")
+@Produces(MediaType.APPLICATION_JSON)
+@Consumes(MediaType.APPLICATION_JSON)
+public class UsuarioServiceREST {
+
+	ClassUsuarioImpl usuCrud=new ClassUsuarioImpl();
+
+    private final UsuarioService usuarioService = new UsuarioService();
+
+    // LISTAR TODOS LOS USUARIOS
+    @GET
+    public Response listarUsuarios() {
+        try {
+            List<UsuarioDTO> usuarios = usuarioService.listar();
+            return Response.ok(usuarios).build();
+        } catch (Exception e) {
+            return Response.status(Response.Status.INTERNAL_SERVER_ERROR)
+                           .entity("Error al listar usuarios: " + e.getMessage())
+                           .build();
+        }
+    }
+
+    // CREAR USUARIO
+    @POST
+    public Response crearUsuario(Tbl_Usuario usuario) {
+        try {
+            usuarioService.registrar(usuario);
+            return Response.status(Response.Status.CREATED)
+                           .entity("Usuario creado correctamente")
+                           .build();
+        } catch (Exception e) {
+            return Response.status(Response.Status.BAD_REQUEST)
+                           .entity("Error al crear usuario: " + e.getMessage())
+                           .build();
+        }
+    }
+
+    // OBTENER USUARIO POR ID
+    @GET
+    @Path("/{id}")
+    public Response obtenerUsuario(@PathParam("id") int id) {
+        Tbl_Usuario usuario = usuarioService.buscarPorId(id);
+        if (usuario != null) {
+            UsuarioDTO dto = UsuarioMapper.toDTO(usuario);
+            return Response.ok(dto).build();
+        } else {
+            return Response.status(Response.Status.NOT_FOUND)
+                           .entity("Usuario no encontrado con ID: " + id)
+                           .build();
+        }
+    }
+
+    // ACTUALIZAR USUARIO
+    @PUT
+    @Path("/{id}")
+    public Response actualizarUsuario(@PathParam("id") int id, Tbl_Usuario usuario) {
+        try {
+            usuario.setId(id);
+            usuarioService.actualizar(usuario);
+            return Response.ok("Usuario actualizado correctamente").build();
+        } catch (Exception e) {
+            return Response.status(Response.Status.BAD_REQUEST)
+                           .entity("Error al actualizar usuario: " + e.getMessage())
+                           .build();
+        }
+    }
+
+    // ELIMINAR USUARIO
+    @DELETE
+    @Path("/{id}")
+    public Response eliminarUsuario(@PathParam("id") int id) {
+        try {
+            usuarioService.eliminar(id);
+            return Response.ok("Usuario eliminado correctamente").build();
+        } catch (Exception e) {
+            return Response.status(Response.Status.INTERNAL_SERVER_ERROR)
+                           .entity("Error al eliminar usuario: " + e.getMessage())
+                           .build();
+        }
+    }
+
+    // LOGIN
+    @POST
+    @Path("/login")
+    public Response login(@QueryParam("username") String username, @QueryParam("password") String password) {
+        boolean valid = usuarioService.login(username, password);
+        if (valid) {
+            return Response.ok("Login exitoso").build();
+        } else {
+            return Response.status(Response.Status.UNAUTHORIZED)
+                           .entity("Usuario o contraseña incorrectos")
+                           .build();
+        }
+    }
+}

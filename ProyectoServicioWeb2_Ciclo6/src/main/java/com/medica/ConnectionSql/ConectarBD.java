@@ -1,0 +1,38 @@
+package com.medica.ConnectionSql;
+
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.SQLException;
+
+import javax.swing.JOptionPane;
+
+public class ConectarBD {
+	
+	private static String url="jdbc:mysql://localhost:3306/ProyectoMedico";
+	private static String usuario="root";
+	private static String password="caleb123";
+	private static Connection con;
+	
+	//creamos el metodo
+	public static Connection getConexion(){
+		try {
+			Class.forName("com.mysql.cj.jdbc.Driver");
+			con=DriverManager.getConnection(url,usuario,password);
+			
+			//emitimos mensaje
+			//if(con!=null) JOptionPane.showMessageDialog(null,"hay conexion con BD","MENSAJE",
+					//JOptionPane.INFORMATION_MESSAGE);	
+			
+		} catch (ClassNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+    return con;
+
+	} //fin del metodo.....
+
+}

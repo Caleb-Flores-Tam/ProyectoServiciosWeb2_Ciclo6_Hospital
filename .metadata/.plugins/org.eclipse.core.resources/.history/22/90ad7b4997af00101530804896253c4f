@@ -1,0 +1,123 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+  <groupId>com.proyect</groupId>
+  <artifactId>ProyectoServicioWeb2_Ciclo6</artifactId>
+  <packaging>war</packaging>
+  <version>0.0.1-SNAPSHOT</version>
+  <name>ProyectoServicioWeb2_Ciclo6 Maven Webapp</name>
+  <url>http://maven.apache.org</url>
+  
+  <properties>
+  	<maven.compiler.target>1.8</maven.compiler.target>
+  	<maven.compiler.source>1.8</maven.compiler.source>
+  </properties>
+  
+  <dependencies>
+	<!-- JUnit -->
+	    <dependency>
+	      <groupId>junit</groupId>
+	      <artifactId>junit</artifactId>
+	      <version>3.8.1</version>
+	      <scope>test</scope>
+	    </dependency>
+	
+	    <!-- Servlet API -->
+	    <dependency>
+	      <groupId>javax.servlet</groupId>
+	      <artifactId>javax.servlet-api</artifactId>
+	      <version>3.0.1</version>
+	      <scope>provided</scope>
+	    </dependency>
+	
+	    <!-- JAX-RS API -->
+	    <dependency>
+	      <groupId>javax.ws.rs</groupId>
+	      <artifactId>javax.ws.rs-api</artifactId>
+	      <version>2.1.1</version>
+	    </dependency>
+	
+	    <!-- Jersey REST -->
+	    <dependency>
+	      <groupId>org.glassfish.jersey.containers</groupId>
+	      <artifactId>jersey-container-servlet</artifactId>
+	      <version>2.25.1</version>
+	    </dependency>
+	
+	    <dependency>
+	      <groupId>org.glassfish.jersey.media</groupId>
+	      <artifactId>jersey-media-json-jackson</artifactId>
+	      <version>2.25.1</version>
+	    </dependency>
+	
+	    <!-- Integración Jersey + Spring 3 -->
+	    <dependency>
+	      <groupId>org.glassfish.jersey.ext</groupId>
+	      <artifactId>jersey-spring3</artifactId>
+	      <version>2.25.1</version>
+	    </dependency>
+	
+	    <!-- MySQL -->
+	    <dependency>
+	      <groupId>mysql</groupId>
+	      <artifactId>mysql-connector-java</artifactId>
+	      <version>8.0.23</version>
+	    </dependency>
+	
+	    <!-- Lombok -->
+	    <dependency>
+	      <groupId>org.projectlombok</groupId>
+	      <artifactId>lombok</artifactId>
+	      <version>1.18.24</version>
+	      <scope>provided</scope>
+	    </dependency>
+	
+	    <!-- JPA API -->
+	    <dependency>
+	      <groupId>javax.persistence</groupId>
+	      <artifactId>javax.persistence-api</artifactId>
+	      <version>2.2</version>
+	    </dependency>
+	
+	    <!-- Spring Framework (4.3.x estable para Tomcat 8 y Java 8) -->
+	    <dependency>
+	      <groupId>org.springframework</groupId>
+	      <artifactId>spring-core</artifactId>
+	      <version>4.3.30.RELEASE</version>
+	    </dependency>
+	
+	    <dependency>
+	      <groupId>org.springframework</groupId>
+	      <artifactId>spring-context</artifactId>
+	      <version>4.3.30.RELEASE</version>
+	    </dependency>
+	
+	    <dependency>
+	      <groupId>org.springframework</groupId>
+	      <artifactId>spring-beans</artifactId>
+	      <version>4.3.30.RELEASE</version>
+	    </dependency>
+	
+	    <dependency>
+	      <groupId>org.springframework</groupId>
+	      <artifactId>spring-web</artifactId>
+	      <version>4.3.30.RELEASE</version>
+	    </dependency>
+	
+	    <dependency>
+	      <groupId>org.springframework</groupId>
+	      <artifactId>spring-orm</artifactId>
+	      <version>4.3.30.RELEASE</version>
+	    </dependency>
+	
+	    <!-- Logging -->
+	    <dependency>
+	      <groupId>commons-logging</groupId>
+	      <artifactId>commons-logging</artifactId>
+	      <version>1.2</version>
+	    </dependency>
+  </dependencies>
+  <build>
+    <finalName>ProyectoServicioWeb2_Ciclo6</finalName>
+  </build>
+</project>

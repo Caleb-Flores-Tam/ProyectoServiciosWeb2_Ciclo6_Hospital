@@ -1,0 +1,31 @@
+package com.medica.testServiceImpl;
+
+import com.medica.model.Tbl_Medico;
+import com.medica.service.impl.ClassMedicoImp;
+
+public class TestMedico {
+
+	public static void main(String[] args) {
+		Tbl_Medico tblmedico = new Tbl_Medico();
+		ClassMedicoImp crud = new ClassMedicoImp();
+		
+		/*
+		//REGISTRAR
+		tblmedico.setNomDoctor("Miguel");
+		tblmedico.setEspecialidad("Cardiologia");
+		tblmedico.setNacionalidad("Peruana");
+		tblmedico.setDni("87654321");
+		tblmedico.setFecha("2025/05/14");
+		tblmedico.setCorreo("miguel@doctor.pe");
+		
+		crud.RegistrarMedico(tblmedico);
+		
+		
+		//LISTADO
+		crud.ListarMedico();
+		*/
+		crud.EliminarMedico(1);
+
+	}
+
+}

@@ -1,0 +1,115 @@
+package com.medica.model;
+
+import java.time.LocalDate;
+
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.Table;
+
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.RequiredArgsConstructor;
+import lombok.Setter;
+
+public class Tbl_Medico {
+	
+	private int cod_doc;
+	private String nomDoctor;
+	private int idEspecialidad;
+	private String especialidadNombre;
+	private String nacionalidad;
+	private String dni;
+	private String fecha;
+	private String correo;
+	
+	public Tbl_Medico() {
+		// TODO Auto-generated constructor stub
+	}
+
+	public Tbl_Medico(int cod_doc, String nomDoctor, int idEspecialidad, String especialidadNombre, String nacionalidad,
+			String dni, String fecha, String correo) {
+		this.cod_doc = cod_doc;
+		this.nomDoctor = nomDoctor;
+		this.idEspecialidad = idEspecialidad;
+		this.especialidadNombre = especialidadNombre;
+		this.nacionalidad = nacionalidad;
+		this.dni = dni;
+		this.fecha = fecha;
+		this.correo = correo;
+	}
+
+	public int getCod_doc() {
+		return cod_doc;
+	}
+
+	public void setCod_doc(int cod_doc) {
+		this.cod_doc = cod_doc;
+	}
+
+	public String getNomDoctor() {
+		return nomDoctor;
+	}
+
+	public void setNomDoctor(String nomDoctor) {
+		this.nomDoctor = nomDoctor;
+	}
+
+	public int getIdEspecialidad() {
+		return idEspecialidad;
+	}
+
+	public void setIdEspecialidad(int idEspecialidad) {
+		this.idEspecialidad = idEspecialidad;
+	}
+
+	public String getEspecialidadNombre() {
+		return especialidadNombre;
+	}
+
+	public void setEspecialidadNombre(String especialidadNombre) {
+		this.especialidadNombre = especialidadNombre;
+	}
+
+	public String getNacionalidad() {
+		return nacionalidad;
+	}
+
+	public void setNacionalidad(String nacionalidad) {
+		this.nacionalidad = nacionalidad;
+	}
+
+	public String getDni() {
+		return dni;
+	}
+
+	public void setDni(String dni) {
+		this.dni = dni;
+	}
+
+	public String getFecha() {
+		return fecha;
+	}
+
+	public void setFecha(String fecha) {
+		this.fecha = fecha;
+	}
+
+	public String getCorreo() {
+		return correo;
+	}
+
+	public void setCorreo(String correo) {
+		this.correo = correo;
+	}
+
+	
+
+	
+	
+}

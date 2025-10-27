@@ -1,0 +1,125 @@
+package com.medica.service.imp;
+
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
+
+import com.medica.ConnectionSql.ConectarBD;
+import com.medica.model.Tbl_Cita;
+import com.medica.model.Tbl_Medico;
+import com.medica.model.Tbl_Paciente;
+import com.medica.model.Tbl_Usuario;
+import com.medica.service.ICitas;
+import org.springframework.stereotype.Service;
+
+@Service
+public class ClassCitaImp implements ICitas{
+
+	@Override
+	public List<Tbl_Cita> ListaCitas() {
+		List<Tbl_Cita> lista = new ArrayList<>();
+
+        String sqlListado = "SELECT c.idCitas, "
+                + "m.nomDoctor AS NombreMedico, "
+                + "e.nomEspecialidad AS Especialidad, "
+                + "m.correo AS CorreoMedico, "
+                + "p.dni AS DniPaciente, "
+                + "p.nombre_pac AS NombrePaciente, "
+                + "p.seguro AS Seguro, "
+                + "p.telefono_pac AS TelefonoPaciente, "
+                + "u.cargo AS CargoUsuario, "
+                + "u.departamento AS DepartamentoUsuario, "
+                + "u.nombre AS NombreUsuario, "
+                + "u.apellido AS ApellidoUsuario, "
+                + "c.FechaCreacion, "
+                + "c.FechaAtencion, "
+                + "c.Motivo "
+                + "FROM Tbl_Citas c "
+                + "INNER JOIN Tbl_Medico m ON c.IdMedico = m.cod_coc "
+                + "INNER JOIN Tbl_Especialidad e ON m.especialidad = e.idEspecialidad "
+                + "INNER JOIN Tbl_Paciente p ON c.IdPaciente = p.cod_pac "
+                + "INNER JOIN Tbl_Usuario u ON c.IdUsuario = u.id_usuario "
+                + "ORDER BY c.FechaCreacion DESC";
+
+        try (Connection cn = ConectarBD.getConexion();
+             PreparedStatement ps = cn.prepareStatement(sqlListado);
+             ResultSet rs = ps.executeQuery()) {
+
+            while (rs.next()) {
+                // ---- MÉDICO ----
+                Tbl_Medico medico = new Tbl_Medico();
+                medico.setNomDoctor(rs.getString("NombreMedico"));
+                medico.setCorreo(rs.getString("CorreoMedico"));
+                medico.setEspecialidadNombre(rs.getString("Especialidad"));
+
+                // ---- PACIENTE ----
+                Tbl_Paciente paciente = new Tbl_Paciente();
+                paciente.setDni(rs.getString("DniPaciente"));
+                paciente.setNombre_pac(rs.getString("NombrePaciente"));
+                paciente.setSeguro(rs.getString("Seguro"));
+                paciente.setTelefono_pac(rs.getString("TelefonoPaciente"));
+
+                // ---- USUARIO ----
+                Tbl_Usuario usuario = new Tbl_Usuario();
+                usuario.setCargo(rs.getString("CargoUsuario"));
+                usuario.setDepartamento(rs.getString("DepartamentoUsuario"));
+                usuario.setNombre(rs.getString("NombreUsuario"));
+                usuario.setApellido(rs.getString("ApellidoUsuario"));
+
+                // ---- CITA ----
+                Tbl_Cita cita = new Tbl_Cita();
+                cita.setIdCitas(rs.getInt("idCitas"));
+                cita.setIdMedico(medico);
+                cita.setIdPaciente(paciente);
+                cita.setIdUsuario(usuario);
+
+                // FechaCreacion (LocalDateTime)
+                if (rs.getTimestamp("FechaCreacion") != null) {
+                    cita.setFechaCreacion(rs.getTimestamp("FechaCreacion").toLocalDateTime());
+                } else {
+                    cita.setFechaCreacion(LocalDateTime.now());
+                }
+
+                cita.setFechaAtencion(rs.getString("FechaAtencion"));
+                cita.setMotivo(rs.getString("Motivo"));
+
+                lista.add(cita);
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return lista;
+	    }
+
+
+	@Override
+	public void RegistrarCita(Tbl_Cita cita) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void ActualizarCita(Tbl_Cita cita) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void EliminarCita(Tbl_Cita cita) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public Tbl_Cita buscarCitaId(Tbl_Cita cita) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+}

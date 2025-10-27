@@ -1,0 +1,8 @@
+package com.medica.controller;
+
+import javax.ws.rs.Path;
+
+@Path("/Citas")
+public class CitaServiceREST {
+
+}

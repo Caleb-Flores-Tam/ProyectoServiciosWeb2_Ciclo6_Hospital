@@ -1,0 +1,15 @@
+package com.medica.model;
+
+import java.time.LocalDateTime;
+
+public class Tbl_Cita {
+
+	 private int idCitas;
+	 private Tbl_Medico IdMedico;
+	 private Tbl_Paciente IdPaciente;
+	 private Tbl_Usuario IdUsuario;
+	 private LocalDateTime FechaCreacion;
+	 private String FechaAtencion;
+	 private String Motivo;
+	
+}

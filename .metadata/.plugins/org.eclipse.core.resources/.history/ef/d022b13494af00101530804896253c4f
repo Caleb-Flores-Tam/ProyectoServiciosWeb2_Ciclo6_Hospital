@@ -1,0 +1,71 @@
+package com.medica.controller;
+
+import javax.ws.rs.core.MediaType;
+import java.util.List;
+
+import javax.persistence.MappedSuperclass;
+import javax.ws.rs.ApplicationPath;
+import javax.ws.rs.Consumes;
+import javax.ws.rs.GET;
+import javax.ws.rs.POST;
+import javax.ws.rs.Path;
+import javax.ws.rs.Produces;
+import javax.ws.rs.QueryParam;
+
+import org.glassfish.jersey.process.internal.RequestScoped;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+
+import com.medica.model.Tbl_Medico;
+import com.medica.service.IMedicoService;
+import com.medica.service.impl.ClassMedicoImp;
+
+import javax.ws.rs.core.Response;
+
+@Path("/Medico")
+public class MedicoController {
+	
+	ClassMedicoImp crud = new ClassMedicoImp();
+	
+	@GET
+	@Path("Listado")
+	@Produces(MediaType.APPLICATION_JSON)
+	public Response ListadoMedico(){
+		List<Tbl_Medico> listar = crud.ListarMedico();
+		return Response.ok(listar).build();
+	}
+	
+	/*@Autowired
+	private IMedicoService service;
+	
+	@GET
+	@Path("/listar")
+	@Produces(MediaType.APPLICATION_JSON)
+	public Response ListarMedico(){
+		List<Tbl_Medico> listado = service.ListarMedico();
+		return Response.ok(listado).build();
+	}
+	
+	@GET
+	@Path("/RegistrarMedico")
+	public String RegistrarMedico(Model modelo){
+		ClassMedico medico = new ClassMedico();
+		modelo.addAttribute("regismedico", medico);
+		return "vistas/Medicos/FrmCrearMedico";
+	}
+	
+	
+	@POST
+	@Path("/guardar")
+	@Consumes(MediaType.APPLICATION_JSON)
+	public Response GuardarMedico(Tbl_Medico medico) { 
+		service.RegistrarMedico(medico);
+        return Response.status(Response.Status.CREATED)
+        		.entity("Médico registrado correctamente")
+        		.build();
+    }*/
+	
+
+}

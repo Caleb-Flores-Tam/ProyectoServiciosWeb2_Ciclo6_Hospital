@@ -1,0 +1,9 @@
+package com.medica.service;
+
+public interface IPacienteService {
+	void registrarPaciente(Tbl_Paciente paciente);
+    void actualizarPaciente(Tbl_Paciente paciente);
+    void eliminarPaciente(Tbl_Paciente paciente);
+    List<Tbl_Paciente> listadoPacientes();
+    Tbl_Paciente buscarPaciente(Tbl_Paciente paciente);
+}
