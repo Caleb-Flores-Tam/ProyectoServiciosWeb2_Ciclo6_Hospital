@@ -1,0 +1,5 @@
+eclipse.preferences.version=1
+encoding//src/main/java/com/medica/controller/EspecialidadServiceREST.java=UTF-8
+encoding//src/main/java/com/medica/controller/MedicoServiceREST.java=UTF-8
+encoding//src/main/java/com/medica/service/imp/ClassCitaImp.java=UTF-8
+encoding//src/main/java/com/medica/service/imp/ClassMedicoImp.java=UTF-8

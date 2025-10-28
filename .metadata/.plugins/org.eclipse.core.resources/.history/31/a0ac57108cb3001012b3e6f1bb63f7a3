@@ -1,0 +1,11 @@
+package com.medica.controller;
+
+import javax.ws.rs.Path;
+
+import org.springframework.web.bind.annotation.CrossOrigin;
+
+@Path("/Especialidad")
+@CrossOrigin(origins = "http://localhost:4200")
+public class EspecialidadServiceREST {
+
+}

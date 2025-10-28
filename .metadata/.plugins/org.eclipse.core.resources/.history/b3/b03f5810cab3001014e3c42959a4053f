@@ -1,0 +1,15 @@
+package com.medica.service;
+
+import java.util.List;
+
+import com.medica.model.Tbl_Especialidades;
+
+public interface IEspecialidadService {
+	List<Tbl_Especialidades> ListarEspecialidades();
+	void RegistrarEspecialidad(Tbl_Especialidades espe);
+	void ActualizarEspecialidad(Tbl_Especialidades espe);
+	void EliminarEspecialidad(Tbl_Especialidades espe);
+	Tbl_Especialidades buscarEspecialidadNombre(Tbl_Especialidades espe);
+	Tbl_Especialidades buscarEspecialidadId(int id, Tbl_Especialidades espe);
+	boolean ExisteEspecialidad(String nombre);
+}

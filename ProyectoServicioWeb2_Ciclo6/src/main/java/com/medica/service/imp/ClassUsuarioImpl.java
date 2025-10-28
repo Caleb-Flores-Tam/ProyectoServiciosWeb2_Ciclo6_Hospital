@@ -56,6 +56,7 @@ public class ClassUsuarioImpl implements IUsuario{
         }
     }
     
+    
 	@Override
 	public void registrarUsuario(Tbl_Usuario usuario) {
 		try (Connection conn = ConectarBD.getConexion();
@@ -240,4 +241,6 @@ public class ClassUsuarioImpl implements IUsuario{
         }
         return false;
     }
+
+	
 }

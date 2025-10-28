@@ -13,10 +13,13 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
+import org.springframework.web.bind.annotation.CrossOrigin;
+
 import com.medica.model.Tbl_Paciente;
 import com.medica.service.imp.ClassPacienteImp;
 
 @Path("/Paciente")
+@CrossOrigin(origins = "http://localhost:4200")
 public class PacienteServiceREST {
 	ClassPacienteImp crud = new ClassPacienteImp();
 

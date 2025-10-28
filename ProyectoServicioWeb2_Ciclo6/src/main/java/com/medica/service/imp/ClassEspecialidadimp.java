@@ -1,5 +1,6 @@
 package com.medica.service.imp;
 
+import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -38,22 +39,46 @@ public class ClassEspecialidadimp implements IEspecialidadService {
 
 	@Override
 	public void RegistrarEspecialidad(Tbl_Especialidades espe) {
-		String sqlinsert = "INSERT INTO Tbl_Especialidad (nomEspecialidad, desEspecialidad) VALUES (?, ?)";
-		PreparedStatement ps = null;
-		
-		try {
-			ps = ConectarBD.getConexion().prepareStatement(sqlinsert);
-			ps.setString(1, espe.getEspecialidad());
-			ps.setString(2, espe.getDescEspecialidad());
-			int z = ps.executeUpdate();
-			if (z>0) {
-				System.out.print("Datos Registrados en BD");
-			}
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		
+	    String sqlCheck = "SELECT COUNT(*) FROM Tbl_Especialidad WHERE nomEspecialidad = ?";
+	    String sqlInsert = "INSERT INTO Tbl_Especialidad (nomEspecialidad, desEspecialidad) VALUES (?, ?)";
+	    PreparedStatement psCheck = null;
+	    PreparedStatement psInsert = null;
+	    ResultSet rs = null;
+
+	    try {
+	        Connection cn = ConectarBD.getConexion();
+
+	        // Verificar si ya existe una especialidad con el mismo nombre
+	        psCheck = cn.prepareStatement(sqlCheck);
+	        psCheck.setString(1, espe.getEspecialidad());
+	        rs = psCheck.executeQuery();
+
+	        if (rs.next() && rs.getInt(1) > 0) {
+	            System.out.println(" La especialidad '" + espe.getEspecialidad() + "' ya existe en la base de datos.");
+	            throw new RuntimeException("La especialidad ya existe");
+	        }
+
+	        //Si no existe, insertamos
+	        psInsert = cn.prepareStatement(sqlInsert);
+	        psInsert.setString(1, espe.getEspecialidad());
+	        psInsert.setString(2, espe.getDescEspecialidad());
+	        int z = psInsert.executeUpdate();
+
+	        if (z > 0) {
+	            System.out.println("Especialidad registrada correctamente.");
+	        }
+
+	    } catch (SQLException e) {
+	        e.printStackTrace();
+	    } finally {
+	        try {
+	            if (rs != null) rs.close();
+	            if (psCheck != null) psCheck.close();
+	            if (psInsert != null) psInsert.close();
+	        } catch (SQLException e) {
+	            e.printStackTrace();
+	        }
+	    }
 	}//POST
 
 	@Override
@@ -95,6 +120,29 @@ public class ClassEspecialidadimp implements IEspecialidadService {
 	}
 
 	@Override
+	public Tbl_Especialidades buscarEspecialidadNombre(Tbl_Especialidades espe) {
+		String sqlbuscar = "SELECT * FROM tbl_especialidad where nomEspecialidad = ?";
+		PreparedStatement ps = null;
+		ResultSet rs = null;
+		Tbl_Especialidades buscarEspe = new Tbl_Especialidades();
+		try {
+			ps = ConectarBD.getConexion().prepareStatement(sqlbuscar);
+			ps.setString(1, espe.getEspecialidad());
+			rs = ps.executeQuery();
+			if (rs.next()) {
+				//almacenmaos los valores recuperados 
+				buscarEspe.setIdEspecialidad(rs.getInt(1));
+				buscarEspe.setEspecialidad(rs.getString(2));
+				buscarEspe.setDescEspecialidad(rs.getString(3));
+			}// fin del if
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return buscarEspe;
+	}
+
+	/*@Override
 	public Tbl_Especialidades buscarEspecialidadId(Tbl_Especialidades espe) {
 		String sqlbuscar = "SELECT * FROM tbl_especialidad where idEspecialidad = ?";
 		PreparedStatement ps = null;
@@ -116,5 +164,36 @@ public class ClassEspecialidadimp implements IEspecialidadService {
 		}
 		return buscarEspe;
 	}
+	*/
+	@Override
+	public boolean ExisteEspecialidad(String nombre) {
+	    String sql = "SELECT COUNT(*) FROM Tbl_Especialidad WHERE nomEspecialidad = ?";
+	    PreparedStatement ps = null;
+	    ResultSet rs = null;
+	    boolean existe = false;
+
+	    try {
+	        ps = ConectarBD.getConexion().prepareStatement(sql);
+	        ps.setString(1, nombre);
+	        rs = ps.executeQuery();
+
+	        if (rs.next()) {
+	            existe = rs.getInt(1) > 0; // true si hay coincidencia
+	        }
+
+	    } catch (SQLException e) {
+	        e.printStackTrace();
+	    } finally {
+	        try {
+	            if (rs != null) rs.close();
+	            if (ps != null) ps.close();
+	        } catch (SQLException e) {
+	            e.printStackTrace();
+	        }
+	    }
+
+	    return existe;
+	}
+
 
 }

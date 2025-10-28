@@ -19,7 +19,10 @@ import com.medica.service.imp.ClassMedicoImp;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.Response.Status;
 
+import org.springframework.web.bind.annotation.CrossOrigin;
+
 @Path("/Medico")
+@CrossOrigin(origins = "http://localhost:4200")
 public class MedicoServiceREST {
 	
 	ClassMedicoImp crud = new ClassMedicoImp();
@@ -60,12 +63,19 @@ public class MedicoServiceREST {
 
 	 	// ACTUALIZAR MÉDICO
 	    @PUT
-	    @Path("/ActualizarMedico")
+	    @Path("/ActualizarMedico/{id}")
 	    @Consumes(MediaType.APPLICATION_JSON)
 	    @Produces(MediaType.APPLICATION_JSON)
-	    public Response ActualizarMedico(Tbl_Medico medico) {
-	        crud.ActualizarMedico(medico);
-	        return Response.ok(medico).build();
+	    public Response ActualizarMedico(@PathParam("id")int id, Tbl_Medico medico) {
+	        try{
+	        	medico.setCod_doc(id);
+	        	crud.ActualizarMedico(medico);
+		        return Response.ok(medico).build();
+	        }catch(Exception e){
+	        	return Response.status(Response.Status.BAD_REQUEST)
+	    				.entity("Error al actualizar el medico "+id+ e.getMessage())
+	    				.build();
+	        }
 	    }
 
 	    // 🔹 ELIMINAR MÉDICO

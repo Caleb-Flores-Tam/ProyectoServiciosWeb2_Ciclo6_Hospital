@@ -6,10 +6,24 @@ import java.util.Set;
 import javax.ws.rs.ApplicationPath;
 import javax.ws.rs.core.Application;
 
+import com.medica.config.CORSFilter;
 import com.medica.config.JacksonConfig;
 
 @ApplicationPath("Hospital")
 public class Configuracion extends Application{
 
+    @Override
+    public Set<Class<?>> getClasses() {
+        Set<Class<?>> resources = new HashSet<>();
+        // tus controladores
+        resources.add(MedicoServiceREST.class);
+        resources.add(CitaServiceREST.class);
+        resources.add(EspecialidadServiceREST.class);
+        resources.add(PacienteServiceREST.class);
+        resources.add(UsuarioServiceREST.class);
+        // registrar el filtro CORS
+        resources.add(CORSFilter.class);
+        return resources;
+    }
 
 }

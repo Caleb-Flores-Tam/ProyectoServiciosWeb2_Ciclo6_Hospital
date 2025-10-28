@@ -6,6 +6,8 @@ import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
+import org.springframework.web.bind.annotation.CrossOrigin;
+
 import com.medica.dto.UsuarioDTO;
 import com.medica.model.Tbl_Usuario;
 import com.medica.service.UsuarioService;
@@ -15,6 +17,7 @@ import com.medico.mapper.UsuarioMapper;
 
 
 @Path("Usuario")
+@CrossOrigin(origins = "http://localhost:4200")
 public class UsuarioServiceREST {
 
 	ClassUsuarioImpl usuCrud=new ClassUsuarioImpl();

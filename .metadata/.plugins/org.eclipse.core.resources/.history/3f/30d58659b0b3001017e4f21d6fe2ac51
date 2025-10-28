@@ -1,0 +1,100 @@
+package com.medica.controller;
+
+import java.util.List;
+
+import javax.ws.rs.Consumes;
+import javax.ws.rs.DELETE;
+import javax.ws.rs.GET;
+import javax.ws.rs.POST;
+import javax.ws.rs.PUT;
+import javax.ws.rs.Path;
+import javax.ws.rs.PathParam;
+import javax.ws.rs.Produces;
+import javax.ws.rs.core.MediaType;
+import javax.ws.rs.core.Response;
+import javax.ws.rs.core.Response.Status;
+
+import org.springframework.web.bind.annotation.CrossOrigin;
+
+import com.medica.model.Tbl_Especialidades;
+import com.medica.model.Tbl_Medico;
+import com.medica.service.imp.ClassEspecialidadimp;
+
+@Path("/Especialidad")
+@CrossOrigin(origins = "http://localhost:4200")
+public class EspecialidadServiceREST {
+
+	ClassEspecialidadimp crud = new ClassEspecialidadimp();
+	
+	@GET
+	@Path("/ListadoEspecialidad")
+	@Produces(MediaType.APPLICATION_JSON)
+	public Response ListadoMedico(){
+		List<Tbl_Especialidades> listar = crud.ListarEspecialidades();
+		return Response.ok(listar).build();
+	}
+	
+	@POST
+	@Path("/RegistrarEspecialidad")
+	@Produces(MediaType.APPLICATION_JSON)
+	@Consumes(MediaType.APPLICATION_JSON)
+	public Response registrarEspecialidad(Tbl_Especialidades espe) {
+	    try {
+	        // Verifica duplicado dentro del Impl
+	        crud.RegistrarEspecialidad(espe);
+	        return Response.ok("{\"message\":\"Especialidad registrada correctamente\"}").build();
+
+	    } catch (Exception e) {
+	        if (e.getMessage() != null && e.getMessage().contains("ya existe")) {
+	            return Response.status(Response.Status.BAD_REQUEST)
+	                    .entity("{\"message\":\"La especialidad ya existe\"}").build();
+	        }
+	        return Response.status(Response.Status.INTERNAL_SERVER_ERROR)
+	                .entity("{\"message\":\"Error al registrar especialidad\"}").build();
+	    }
+	}
+	
+	@GET
+	@Path("/ListadoEspecialidad/{nomespe}")
+	@Produces(MediaType.APPLICATION_JSON)
+	public Response BuscarEspecialidadPorEspecialidad(@PathParam("nomespe") String nomespe) {
+	    Tbl_Especialidades espe = new Tbl_Especialidades();
+	    espe.setEspecialidad(nomespe);;
+	    Tbl_Especialidades resultado = crud.buscarEspecialidadNombre(espe);
+	    if (resultado.getEspecialidad() == null) { // si no encontró registro
+	    	return Response.status(Status.NOT_FOUND)
+	    			.entity("{\"mensaje\":\"No se encontró Especialidad :" + nomespe+ "\"}")
+	    			.build();
+	    }
+
+	    return Response.ok(resultado).build();
+	    }
+
+	 	// ACTUALIZAR MÉDICO
+	    @PUT
+	    @Path("/ActualizarEspecialidad/{id}")
+	    @Consumes(MediaType.APPLICATION_JSON)
+	    @Produces(MediaType.APPLICATION_JSON)
+	    public Response ActualizarEspecialidad(@PathParam("id")int id, Tbl_Especialidades espe) {
+	    	try{
+	    		espe.setIdEspecialidad(id);
+		        crud.ActualizarEspecialidad(espe);
+		        return Response.ok(espe).build();
+	    	}catch(Exception e){
+	    		return Response.status(Response.Status.BAD_REQUEST)
+	    				.entity("Error al actualizar la especialidad "+id+ e.getMessage())
+	    				.build();
+	    	}
+	    }
+
+	    // 🔹 ELIMINAR MÉDICO
+	    @DELETE
+	    @Path("/EliminarEspecialidad/{id}")
+	    @Produces(MediaType.APPLICATION_JSON)
+	    public Response EliminarEspecialidad(@PathParam("id") int id) {
+	        Tbl_Especialidades espe= new Tbl_Especialidades();
+	        espe.setIdEspecialidad(id);
+	        crud.EliminarEspecialidad(espe);
+	        return Response.ok().build();
+	    }
+}

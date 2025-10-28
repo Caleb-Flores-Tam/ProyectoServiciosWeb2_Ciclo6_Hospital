@@ -9,5 +9,7 @@ public interface IEspecialidadService {
 	void RegistrarEspecialidad(Tbl_Especialidades espe);
 	void ActualizarEspecialidad(Tbl_Especialidades espe);
 	void EliminarEspecialidad(Tbl_Especialidades espe);
-	Tbl_Especialidades buscarEspecialidadId(Tbl_Especialidades espe);
+	Tbl_Especialidades buscarEspecialidadNombre(Tbl_Especialidades espe);
+	//Tbl_Especialidades buscarEspecialidadId(Tbl_Especialidades espe);
+	boolean ExisteEspecialidad(String nombre);
 }

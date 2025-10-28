@@ -1,20 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <qualifiedTypeNameHistroy>
-<fullyQualifiedTypeName name="com.medica.model.ClassMedico"/>
-<fullyQualifiedTypeName name="org.springframework.stereotype.Component"/>
-<fullyQualifiedTypeName name="org.springframework.beans.factory.annotation.Configurable"/>
-<fullyQualifiedTypeName name="org.springframework.context.annotation.Configuration"/>
-<fullyQualifiedTypeName name="java.lang.System"/>
-<fullyQualifiedTypeName name="com.medica.service.IEspecialidadService"/>
-<fullyQualifiedTypeName name="com.medica.service.impl.ClassEspecialidadimp"/>
-<fullyQualifiedTypeName name="javax.ws.rs.ApplicationPath"/>
-<fullyQualifiedTypeName name="com.medica.service.impl.ClassMedicoImp"/>
-<fullyQualifiedTypeName name="javax.net.ssl.SSLEngineResult.Status"/>
-<fullyQualifiedTypeName name="javax.ws.rs.core.Response.Status"/>
-<fullyQualifiedTypeName name="javax.ws.rs.Path"/>
-<fullyQualifiedTypeName name="com.medica.service.imp.ClassPacienteImp"/>
-<fullyQualifiedTypeName name="javax.ws.rs.GET"/>
-<fullyQualifiedTypeName name="javax.ws.rs.Produces"/>
 <fullyQualifiedTypeName name="javax.ws.rs.core.MediaType"/>
 <fullyQualifiedTypeName name="javax.ws.rs.POST"/>
 <fullyQualifiedTypeName name="javax.ws.rs.Consumes"/>
@@ -32,7 +17,6 @@
 <fullyQualifiedTypeName name="org.glassfish.jersey.server.ResourceConfig"/>
 <fullyQualifiedTypeName name="com.fasterxml.jackson.jaxrs.json.JacksonJaxbJsonProvider"/>
 <fullyQualifiedTypeName name="javax.ws.rs.core.Application"/>
-<fullyQualifiedTypeName name="javax.ws.rs.ext.Provider"/>
 <fullyQualifiedTypeName name="com.fasterxml.jackson.databind.ObjectMapper"/>
 <fullyQualifiedTypeName name="com.fasterxml.jackson.datatype.jsr310.JavaTimeModule"/>
 <fullyQualifiedTypeName name="com.fasterxml.jackson.databind.SerializationFeature"/>
@@ -41,14 +25,9 @@
 <fullyQualifiedTypeName name="java.util.HashSet"/>
 <fullyQualifiedTypeName name="com.medica.config.JacksonConfig"/>
 <fullyQualifiedTypeName name="com.medica.model.Tbl_Genero"/>
-<fullyQualifiedTypeName name="com.medica.model.Tbl_Especialidades"/>
 <fullyQualifiedTypeName name="com.medica.service.ICitas"/>
 <fullyQualifiedTypeName name="java.util.ArrayList"/>
-<fullyQualifiedTypeName name="java.sql.PreparedStatement"/>
-<fullyQualifiedTypeName name="java.sql.Connection"/>
-<fullyQualifiedTypeName name="java.sql.ResultSet"/>
 <fullyQualifiedTypeName name="com.medica.model.Tbl_Medico"/>
-<fullyQualifiedTypeName name="com.medica.ConnectionSql.ConectarBD"/>
 <fullyQualifiedTypeName name="com.medica.model.Tbl_Paciente"/>
 <fullyQualifiedTypeName name="com.medica.model.Tbl_Usuario"/>
 <fullyQualifiedTypeName name="java.time.LocalDateTime"/>
@@ -58,6 +37,27 @@
 <fullyQualifiedTypeName name="com.medica.service.imp.ClassCitaImp"/>
 <fullyQualifiedTypeName name="java.util.List"/>
 <fullyQualifiedTypeName name="javax.ws.rs.core.Response"/>
-<fullyQualifiedTypeName name="javax.ws.rs.PathParam"/>
 <fullyQualifiedTypeName name="com.medica.model.Tbl_Cita"/>
+<fullyQualifiedTypeName name="org.springframework.web.bind.annotation.CrossOrigin"/>
+<fullyQualifiedTypeName name="javax.ws.rs.container.ContainerResponseFilter"/>
+<fullyQualifiedTypeName name="javax.ws.rs.ext.Provider"/>
+<fullyQualifiedTypeName name="javax.ws.rs.container.ContainerRequestContext"/>
+<fullyQualifiedTypeName name="javax.ws.rs.container.ContainerResponseContext"/>
+<fullyQualifiedTypeName name="java.io.IOException"/>
+<fullyQualifiedTypeName name="com.medica.controller.MedicoServiceREST"/>
+<fullyQualifiedTypeName name="com.medica.config.CORSFilter"/>
+<fullyQualifiedTypeName name="com.medica.controller.CitaServiceREST"/>
+<fullyQualifiedTypeName name="com.medica.controller.EspecialidadServiceREST"/>
+<fullyQualifiedTypeName name="javax.ws.rs.Path"/>
+<fullyQualifiedTypeName name="javax.ws.rs.PathParam"/>
+<fullyQualifiedTypeName name="java.lang.ExceptionInInitializerError"/>
+<fullyQualifiedTypeName name="javax.ws.rs.core.Response.Status"/>
+<fullyQualifiedTypeName name="java.lang.Exception"/>
+<fullyQualifiedTypeName name="java.sql.PreparedStatement"/>
+<fullyQualifiedTypeName name="java.sql.ResultSet"/>
+<fullyQualifiedTypeName name="com.medica.ConnectionSql.ConectarBD"/>
+<fullyQualifiedTypeName name="java.sql.Connection"/>
+<fullyQualifiedTypeName name="javax.persistence.EntityManager"/>
+<fullyQualifiedTypeName name="com.medica.service.imp.ClassEspecialidadimp"/>
+<fullyQualifiedTypeName name="com.medica.model.Tbl_Especialidades"/>
 </qualifiedTypeNameHistroy>

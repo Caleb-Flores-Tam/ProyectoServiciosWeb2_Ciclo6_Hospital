@@ -38,7 +38,7 @@ public class TestEspecialidad {
 			System.out.println("-------------------------------");
 		}
 		
-		*/
+		
 		
 		//LISTADO
 		espe.setIdEspecialidad(2);
@@ -49,6 +49,6 @@ public class TestEspecialidad {
 			System.out.println("DESCRIPCION: "+especialidades.getDescEspecialidad());
 			System.out.println("-------------------------------");
 		
-		
+		*/
 	}
 }

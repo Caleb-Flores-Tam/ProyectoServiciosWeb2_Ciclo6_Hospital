@@ -1,0 +1,145 @@
+package com.medica.service.imp;
+
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
+import org.springframework.stereotype.Service;
+import com.medica.ConnectionSql.ConectarBD;
+import com.medica.model.Tbl_Especialidades;
+import com.medica.service.IEspecialidadService;
+
+@Service
+public class ClassEspecialidadimp implements IEspecialidadService {
+
+	@Override
+	public List<Tbl_Especialidades> ListarEspecialidades() {
+		String sqllistado = "select * from tbl_especialidad";
+		PreparedStatement ps = null;
+		ResultSet rs = null;
+		List<Tbl_Especialidades> listar = new ArrayList<Tbl_Especialidades>();
+		try {
+			ps = ConectarBD.getConexion().prepareStatement(sqllistado);
+			rs = ps.executeQuery();
+			while(rs.next()){
+				Tbl_Especialidades espe = new Tbl_Especialidades();
+				espe.setIdEspecialidad(rs.getInt(1));
+				espe.setEspecialidad(rs.getString(2));
+				espe.setDescEspecialidad(rs.getString(3));
+				listar.add(espe);
+			}//cierre del bucle
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
+		return listar;
+	}
+
+	@Override
+	public void RegistrarEspecialidad(Tbl_Especialidades espe) {
+	    String sqlCheck = "SELECT COUNT(*) FROM Tbl_Especialidad WHERE nomEspecialidad = ?";
+	    String sqlInsert = "INSERT INTO Tbl_Especialidad (nomEspecialidad, desEspecialidad) VALUES (?, ?)";
+	    PreparedStatement psCheck = null;
+	    PreparedStatement psInsert = null;
+	    ResultSet rs = null;
+
+	    try {
+	        Connection cn = ConectarBD.getConexion();
+
+	        // Verificar si ya existe una especialidad con el mismo nombre
+	        psCheck = cn.prepareStatement(sqlCheck);
+	        psCheck.setString(1, espe.getEspecialidad());
+	        rs = psCheck.executeQuery();
+
+	        if (rs.next() && rs.getInt(1) > 0) {
+	            System.out.println("⚠️ La especialidad '" + espe.getEspecialidad() + "' ya existe en la base de datos.");
+	            return; // detenemos el método, no insertamos
+	        }
+
+	        //Si no existe, insertamos
+	        psInsert = cn.prepareStatement(sqlInsert);
+	        psInsert.setString(1, espe.getEspecialidad());
+	        psInsert.setString(2, espe.getDescEspecialidad());
+	        int z = psInsert.executeUpdate();
+
+	        if (z > 0) {
+	            System.out.println("✅ Especialidad registrada correctamente.");
+	        }
+
+	    } catch (SQLException e) {
+	        e.printStackTrace();
+	    } finally {
+	        try {
+	            if (rs != null) rs.close();
+	            if (psCheck != null) psCheck.close();
+	            if (psInsert != null) psInsert.close();
+	        } catch (SQLException e) {
+	            e.printStackTrace();
+	        }
+	    }
+	}//POST
+
+	@Override
+	public void ActualizarEspecialidad(Tbl_Especialidades espe) {
+		String sqlupdate = "update tbl_especialidad set nomEspecialidad=?, desEspecialidad=? where idEspecialidad=?";
+		PreparedStatement ps = null;
+		
+		try {
+			ps = ConectarBD.getConexion().prepareStatement(sqlupdate);
+			ps.setString(1, espe.getEspecialidad());
+			ps.setString(2, espe.getDescEspecialidad());
+			ps.setInt(3, espe.getIdEspecialidad());
+			int z = ps.executeUpdate();
+			if (z>0) {
+				System.out.print("Datos Actualizados del codigo "+espe.getIdEspecialidad()+" Correctamente");
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+	}//PUT
+
+	@Override
+	public void EliminarEspecialidad(Tbl_Especialidades espe) {
+		String sqldelete="delete from tbl_especialidad where idEspecialidad=?";
+		PreparedStatement ps = null;
+		try {
+			ps=ConectarBD.getConexion().prepareStatement(sqldelete);
+			ps.setInt(1, espe.getIdEspecialidad());
+			
+			int z = ps.executeUpdate();
+			if(z>0){
+				System.out.println("Usuario con codigo "+espe.getIdEspecialidad()+" de la BD!!!!!!");
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+	}
+
+	@Override
+	public Tbl_Especialidades buscarEspecialidadNombre(Tbl_Especialidades espe) {
+		String sqlbuscar = "SELECT * FROM tbl_especialidad where nomEspecialidad = ?";
+		PreparedStatement ps = null;
+		ResultSet rs = null;
+		Tbl_Especialidades buscarEspe = new Tbl_Especialidades();
+		try {
+			ps = ConectarBD.getConexion().prepareStatement(sqlbuscar);
+			ps.setString(1, espe.getEspecialidad());
+			rs = ps.executeQuery();
+			if (rs.next()) {
+				//almacenmaos los valores recuperados 
+				buscarEspe.setIdEspecialidad(rs.getInt(1));
+				buscarEspe.setEspecialidad(rs.getString(2));
+				buscarEspe.setDescEspecialidad(rs.getString(3));
+			}// fin del if
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return buscarEspe;
+	}
+
+}

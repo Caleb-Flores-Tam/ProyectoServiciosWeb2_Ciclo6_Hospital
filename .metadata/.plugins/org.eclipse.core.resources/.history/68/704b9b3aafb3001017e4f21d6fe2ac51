@@ -1,0 +1,27 @@
+package com.medica.dto;
+
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+
+import com.medica.ConnectionSql.ConectarBD;
+
+public class EspecialidadDAO {
+
+	ConectarBD cn = (ConectarBD) ConectarBD.getConexion();
+	
+	public boolean existeEspecialidad(String nombre) {
+	    boolean existe = false;
+	    String sql = "SELECT COUNT(*) FROM Tbl_Especialidad WHERE especialidad = ?";
+	    try {
+	        PreparedStatement ps = cn.prepareStatement(sql);
+	        ps.setString(1, nombre);
+	        ResultSet rs = ps.executeQuery();
+	        if (rs.next() && rs.getInt(1) > 0) {
+	            existe = true;
+	        }
+	    } catch (Exception e) {
+	        e.printStackTrace();
+	    }
+	    return existe;
+	}
+}
